@@ -15,12 +15,12 @@ function divide(num1, num2) {
   return num1 / num2;
 }
 
-function operate(num1,num2,operator) {
-  operator === "+"
+function operate(num1, num2, operator) {
+  operator === "add"
     ? add(num1, num2)
-    : operator === "-"
+    : operator === "subtract"
     ? subtract(num1, num2)
-    : operator === "*"
+    : operator === "multiply"
     ? multiply(num1, num2)
     : divide(num1, num2);
 }
@@ -52,24 +52,30 @@ for (i = 0; i < 16; i++) {
   buttonCreate.textContent = `${buttonLabels[i]}`;
   wrapper.appendChild(buttonCreate);
 }
-
+let num1;
+let num2;
+let operator;
 function display() {
   const buttons = wrapper.querySelectorAll("button");
   const display = document.querySelector(".display");
   display.textContent = "";
+
   buttons.forEach((button) =>
     button.addEventListener("click", () => {
-      isNaN(parseInt(button.className)) //check is it not a number when className converted to integer?
-      ? {
-        button.className === "equal" ?{
-            num2 = parseFloat(display);
-            operate(num1,num2,)
-        } : 
+      //check is it not a number when className converted to integer?
+
+      if (isNaN(parseInt(button.className))) {
+        if (button.className === "equal") {
+          num2 = parseFloat(display.textContent);
+          display.textContent = operate(num1, num2, operator);
+        } else {
+          num1 = parseFloat(display.textContent);
+          operator = button.className;
+          display.textContent = "";
+        }
+      } else {
+        display.textContent += button.className;
       }
-      
-      (display.textContent += button.className)
-        : console.log(button.className);
-     
     })
   );
 }
