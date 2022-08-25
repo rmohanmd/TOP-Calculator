@@ -16,7 +16,7 @@ function divide(num1, num2) {
 }
 
 function operate(num1, num2, operator) {
-  operator === "add"
+  return operator === "add"
     ? add(num1, num2)
     : operator === "subtract"
     ? subtract(num1, num2)
@@ -52,9 +52,12 @@ for (i = 0; i < 16; i++) {
   buttonCreate.textContent = `${buttonLabels[i]}`;
   wrapper.appendChild(buttonCreate);
 }
-let num1;
-let num2;
+let num1 = 0;
+let num2 = 0;
 let operator;
+
+function displayEqual() {}
+
 function display() {
   const buttons = wrapper.querySelectorAll("button");
   const display = document.querySelector(".display");
@@ -68,6 +71,10 @@ function display() {
         if (button.className === "equal") {
           num2 = parseFloat(display.textContent);
           display.textContent = operate(num1, num2, operator);
+        } else if (button.className === "clear") {
+          num1 = "";
+          num2 = "";
+          display.textContent = "";
         } else {
           num1 = parseFloat(display.textContent);
           operator = button.className;
@@ -79,3 +86,4 @@ function display() {
     })
   );
 }
+display();
