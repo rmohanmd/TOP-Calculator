@@ -52,8 +52,8 @@ for (i = 0; i < 16; i++) {
   buttonCreate.textContent = `${buttonLabels[i]}`;
   wrapper.appendChild(buttonCreate);
 }
-let num1 = 0;
-let num2 = 0;
+let num1 = "";
+let num2 = "";
 let operator;
 
 function displayEqual() {}
@@ -61,6 +61,7 @@ function displayEqual() {}
 function display() {
   const buttons = wrapper.querySelectorAll("button");
   const display = document.querySelector(".display");
+  let tempHolder = "";
   display.textContent = "";
 
   buttons.forEach((button) =>
@@ -71,19 +72,46 @@ function display() {
         if (button.className === "equal") {
           num2 = parseFloat(display.textContent);
           display.textContent = operate(num1, num2, operator);
+          operator = "";
+          num1 = "";
         } else if (button.className === "clear") {
           num1 = "";
           num2 = "";
+          operator = "";
           display.textContent = "";
         } else {
-          num1 = parseFloat(display.textContent);
-          operator = button.className;
-          display.textContent = "";
+          // normal first run
+
+          // num2 is already full and push operator again
+          if (num1 !== "") {
+            num2 = parseFloat(display.textContent);
+            num1 = operate(num1, num2, operator);
+            display.textContent = num1;
+            operator = button.className;
+            //num2 = "";
+          } else {
+            num1 = parseFloat(display.textContent);
+            display.textContent = "";
+            operator = button.className;
+          }
+          // if operator empty {do normal}
+          // else if operator notEmpty { run the calculation, display it and }
+          // operator = button.className;
+          // if (num2 === "") {
+          //   num1 = parseFloat(display.textContent);
+          //   display.textContent = "";
+          // } else {
+          //   num2 = parseFloat(display.textContent);
+          //   display.textContent = operate(num1, num2, operator);
+          // }
         }
       } else {
+        ///if (typeof num1 === "number") display.textContent;
         display.textContent += button.className;
       }
     })
   );
 }
 display();
+
+//
