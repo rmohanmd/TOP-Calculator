@@ -72,9 +72,8 @@ function display() {
       if (isNaN(parseInt(button.className))) {
         if (button.className === "=") {
           num2 = parseFloat(tempHolder);
-          tempHolder =
-            Math.round(operate(num1, num2, operator) * 1000000) / 1000000;
-          display.textContent = tempHolder;
+          tempHolder = operate(num1, num2, operator);
+          display.textContent = Math.round(tempHolder * 1000000) / 1000000;
           operator = "";
           num1 = "";
         } else if (button.className === "AC") {
@@ -84,32 +83,19 @@ function display() {
           operator = "";
           display.textContent = "";
         } else {
-          //if you push an operator but operator is already has something, replace it.
-
           if (num1 !== "") {
             num2 = parseFloat(tempHolder);
             tempHolder = "";
             num1 = operate(num1, num2, operator);
-            display.textContent = num1;
+            display.textContent = Math.round(num1 * 1000000) / 1000000;
             operator = button.className;
           } else {
             num1 = parseFloat(tempHolder);
             tempHolder = "";
             operator = button.className;
           }
-          // if operator empty {do normal}
-          // else if operator notEmpty { run the calculation, display it and }
-          // operator = button.className;
-          // if (num2 === "") {
-          //   num1 = parseFloat(display.textContent);
-          //   display.textContent = "";
-          // } else {
-          //   num2 = parseFloat(display.textContent);
-          //   display.textContent = operate(num1, num2, operator);
-          // }
         }
       } else {
-        ///if (typeof num1 === "number") display.textContent;
         tempHolder += button.className;
         display.textContent = tempHolder;
       }
