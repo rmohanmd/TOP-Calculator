@@ -40,7 +40,7 @@ const buttonLabels = [
   0,
   "add",
   "subtract",
-  "mulitply",
+  "multiply",
   "divide",
   "equal",
   "clear",
@@ -54,14 +54,15 @@ for (i = 0; i < 16; i++) {
 }
 let num1 = "";
 let num2 = "";
-let operator;
+let operator = "";
+let tempHolder = "";
 
 function displayEqual() {}
 
 function display() {
   const buttons = wrapper.querySelectorAll("button");
   const display = document.querySelector(".display");
-  let tempHolder = "";
+
   display.textContent = "";
 
   buttons.forEach((button) =>
@@ -70,28 +71,29 @@ function display() {
 
       if (isNaN(parseInt(button.className))) {
         if (button.className === "equal") {
-          num2 = parseFloat(display.textContent);
-          display.textContent = operate(num1, num2, operator);
+          num2 = parseFloat(tempHolder);
+          tempHolder = operate(num1, num2, operator);
+          display.textContent = tempHolder;
           operator = "";
           num1 = "";
         } else if (button.className === "clear") {
           num1 = "";
           num2 = "";
+          tempHolder = "";
           operator = "";
           display.textContent = "";
         } else {
-          // normal first run
+          //if you push an operator but operator is already has something, replace it.
 
-          // num2 is already full and push operator again
           if (num1 !== "") {
-            num2 = parseFloat(display.textContent);
+            num2 = parseFloat(tempHolder);
+            tempHolder = "";
             num1 = operate(num1, num2, operator);
             display.textContent = num1;
             operator = button.className;
-            //num2 = "";
           } else {
-            num1 = parseFloat(display.textContent);
-            display.textContent = "";
+            num1 = parseFloat(tempHolder);
+            tempHolder = "";
             operator = button.className;
           }
           // if operator empty {do normal}
@@ -107,7 +109,8 @@ function display() {
         }
       } else {
         ///if (typeof num1 === "number") display.textContent;
-        display.textContent += button.className;
+        tempHolder += button.className;
+        display.textContent = tempHolder;
       }
     })
   );
