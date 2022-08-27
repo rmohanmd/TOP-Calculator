@@ -11,16 +11,16 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-  if (num2 === 0) return "ERROR!";
+  if (num2 === 0) return "HEY! Can't do that!";
   return num1 / num2;
 }
 
 function operate(num1, num2, operator) {
-  return operator === "add"
+  return operator === "+"
     ? add(num1, num2)
-    : operator === "subtract"
+    : operator === "-"
     ? subtract(num1, num2)
-    : operator === "multiply"
+    : operator === "*"
     ? multiply(num1, num2)
     : divide(num1, num2);
 }
@@ -38,12 +38,12 @@ const buttonLabels = [
   8,
   9,
   0,
-  "add",
-  "subtract",
-  "multiply",
-  "divide",
-  "equal",
-  "clear",
+  "+",
+  "-",
+  "*",
+  "/",
+  "=",
+  "AC",
 ];
 
 for (i = 0; i < 16; i++) {
@@ -70,13 +70,13 @@ function display() {
       //check is it not a number when className converted to integer?
 
       if (isNaN(parseInt(button.className))) {
-        if (button.className === "equal") {
+        if (button.className === "=") {
           num2 = parseFloat(tempHolder);
           tempHolder = operate(num1, num2, operator);
           display.textContent = tempHolder;
           operator = "";
           num1 = "";
-        } else if (button.className === "clear") {
+        } else if (button.className === "AC") {
           num1 = "";
           num2 = "";
           tempHolder = "";
