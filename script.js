@@ -72,7 +72,8 @@ function display() {
       if (isNaN(parseInt(button.className))) {
         if (button.className === "=") {
           num2 = parseFloat(tempHolder);
-          tempHolder = operate(num1, num2, operator);
+          tempHolder =
+            Math.round(operate(num1, num2, operator) * 1000000) / 1000000;
           display.textContent = tempHolder;
           operator = "";
           num1 = "";
